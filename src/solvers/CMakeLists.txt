@@ -110,11 +110,11 @@ foreach(SOLVER ${sat_impl})
         message(STATUS "Building solvers with cadical")
 
         download_project(PROJ cadical
-            URL https://github.com/arminbiere/cadical/archive/rel-1.4.1.tar.gz
+            URL https://github.com/arminbiere/cadical/archive/rel-1.5.3.tar.gz
             PATCH_COMMAND patch -p1 -i ${CBMC_SOURCE_DIR}/../scripts/cadical-1.4.1-patch
+            CONFIGURE_COMMAND ./configure
             COMMAND cmake -E copy ${CBMC_SOURCE_DIR}/../scripts/cadical_CMakeLists.txt CMakeLists.txt
-            COMMAND ./configure
-            URL_MD5 b44874501a175106424f4bd5de29aa59
+            URL_MD5 265b1a715000ed3c5b6de36ddd1278a0
         )
 
         add_subdirectory(${cadical_SOURCE_DIR} ${cadical_BINARY_DIR})

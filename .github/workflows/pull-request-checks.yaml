@@ -638,7 +638,7 @@ jobs:
           echo "CLCACHE_BASEDIR=$((Get-Item -Path '.\').FullName)" >> $env:GITHUB_ENV
           echo "CLCACHE_DIR=$pwd\.ccache" >> $env:GITHUB_ENV
       - name: Configure with cmake
-        run: cmake -S . -B build
+        run: cmake -S . -B build -Dsat_impl="minisat2;cadical"
       - name: Build Release
         run: cmake --build build --config Release -- /p:UseMultiToolTask=true /p:CLToolExe=clcache
       - name: Print ccache stats
@@ -695,9 +695,9 @@ jobs:
           echo "CLCACHE_BASEDIR=$((Get-Item -Path '.\').FullName)" >> $env:GITHUB_ENV
           echo "CLCACHE_DIR=$pwd\.ccache" >> $env:GITHUB_ENV
       - name: Download minisat with make
-        run: make -C src minisat2-download
+        run: make -C src minisat2-download cadical-download
       - name: Build CBMC with make
-        run: make CXX=clcache BUILD_ENV=MSVC -j2 -C src
+        run: make CXX=clcache BUILD_ENV=MSVC -j2 -C src MINISAT2=../../minisat-2.2.1 CADICAL=../../cadical
       - name: Build unit tests with make
         run: make CXX=clcache BUILD_ENV=MSVC -j2 -C unit all
       - name: Build jbmc with make
@@ -748,7 +748,7 @@ jobs:
           echo "CLCACHE_BASEDIR=$((Get-Item -Path '.\').FullName)" >> $env:GITHUB_ENV
           echo "CLCACHE_DIR=$pwd\.ccache" >> $env:GITHUB_ENV
       - name: Configure with cmake
-        run: cmake -S . -B build
+        run: cmake -S . -B build -Dsat_impl="minisat2;cadical"
       - name: Build Release
         run: cmake --build build --config Release -- /p:UseMultiToolTask=true /p:CLToolExe=clcache
       - name: Print ccache stats
